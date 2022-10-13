@@ -1,0 +1,43 @@
+.categoryitemcontainer{
+    flex: 1;
+    margin: 3px;
+    height: 70vh;
+    position: relative;
+
+    .categoryitemimage{
+        width: 100%;//Containerの幅いっぱいに縮小する
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .categoryiteminfo{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .categoryitemtitle{
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .categoryitembutton{
+            border: none;
+            padding: 10px;
+            background-color: white;
+            color: gray;
+            cursor: pointer;
+            font-weight: 600;
+            border-radius: 5px;
+            &:hover{
+            font-weight: 800;
+            transform: scale(1.05);
+            }
+        }
+    }
+}

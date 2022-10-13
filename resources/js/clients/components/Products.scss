@@ -1,0 +1,13 @@
+.productscontainer{
+    flex:1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.paginationcontainer{
+    margin-right: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content:flex-end;
+}

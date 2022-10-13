@@ -1,0 +1,47 @@
+.footercontainer{
+    display: flex;
+    background-color:#f3f3f3;
+
+    .footerleft{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        margin-right:50px;
+
+        .footerdesc{
+            margin: 20px 0px;
+        }
+    }
+
+    .footerright{
+        flex: 1;
+        padding: 20px;
+
+        .footertitle{
+            margin-bottom: 30px;
+
+        }
+
+        .contactitem{
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .socialcontainer{
+            display: flex;
+
+            .socialicon{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 20px;
+            }
+        }
+    }
+}
