@@ -1,0 +1,139 @@
+.cartcontainer{
+    .cartwrapper{
+        padding: 20px;
+
+        .carttop{
+            display: flex;
+            align-items: center;
+            justify-content:space-between;
+            padding: 20px;
+
+            .carttopbutton{
+                font-weight: 600;
+                cursor: pointer;
+                padding: 10px;
+                border: filled;
+                background-color:transparent;
+                // color: white;
+                border-radius: 5px;
+                &:hover{
+                font-weight: 800;
+                opacity: 0.7;
+                }
+            }
+        }
+
+        .cartbottom{
+            display: flex;
+            justify-content: space-between;
+
+            .cartinfo{
+                flex: 3;
+
+                .cartproduct{
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 16px;
+
+                    .cartproductdetail{
+                        flex: 2;
+                        display: flex;
+
+                        .cartproductimage{
+                            width: 200px;
+                        }
+
+                        .cartdetails{
+                            padding: 20px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-around;
+                        }
+                    }
+
+                    .cartpricedetail{
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-direction: column;
+
+                        .cartproductamountdetail{
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 15px;
+
+                            .cartproductamount{
+                                font-size: 20px;
+                                margin: 5px;
+                                border: 1.5px solid teal;
+                                width: 20px;
+                                height: 20px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 5px;
+                            }
+
+                            .cartremovebutton{
+                                padding: 10px;
+                                border: 2px solid teal;
+                                background-color: white;
+                                cursor: pointer;
+                                font-weight: 500;
+                                border-radius: 5px;
+                                margin-left: 16px;
+
+                                &:hover{
+                                    background-color: #f8f4f4;
+                                    font-weight: 600;
+                                }
+                            }
+                        }
+
+                        .cartproductprice{
+                            font-size: 30px;
+                            font-weight: 200;
+                        }
+                    }
+                }
+
+            }
+            .cartsummary{
+                flex: 1;
+                border: 0.5px solid lightgray;
+                border-radius: 10px;
+                padding: 20px;
+                height: 50vh;
+
+                .cartsummarytitle{
+                    font-weight: 200;
+                }
+
+                .cartsummaryitem{
+                    margin: 30px 0px;
+                    display: flex;
+                    justify-content: space-between;
+                    font-weight: 500;
+                    font-size: 24px;
+                }
+
+                .cartsummarybutton{
+                    width: 100%;
+                    padding: 10px;
+                    background-color: black;
+                    color: white;
+                    font-weight: 600;
+                    cursor: pointer;
+                    border-radius: 5px;
+
+                    &:hover{
+                    font-weight: 800;
+                    opacity: 0.7;
+                    }
+                }
+            }
+
+        }
+    }
+}

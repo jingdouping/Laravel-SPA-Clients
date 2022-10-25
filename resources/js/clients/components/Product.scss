@@ -4,12 +4,11 @@
     justify-content: center;
     margin:30px;
 
-    div{
-
+    .catproductscard{
         .catproductsimagewrapper{
             height: 300px;
             overflow: hidden;
-            
+
             .catproductsimage{
                 height: 100%;
                 // width: 100%;
@@ -19,6 +18,10 @@
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
                 transition: transform .6s ease;
+
+                &:hover{
+                    transform: scale(1.1);
+                }
             }
         }
     }

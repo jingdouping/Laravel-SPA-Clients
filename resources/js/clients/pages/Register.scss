@@ -1,0 +1,190 @@
+.bigregistercontainer{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .registerwrapper{
+        padding: 20px;
+        width: 40%;
+        background-color: white;
+        border-radius: 5px;
+
+        .registertitle{
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .registerinputscontainer{
+            display: flex;
+            flex-direction: column;
+
+            .registercontainer{
+                display: flex;
+                align-items: center;
+                margin-bottom: 16px;
+                width: 100%;
+
+                .registerinputlabel{
+                    font-size: 18px;
+                    width: 150px;
+                }
+
+                .registerinput{
+                    margin: 0 8px;
+                    padding: 8px;
+                    border: 1.5px solid teal;
+                    border-radius: 5px;
+                    width: 70%;
+                    margin-left:auto;
+                }
+            }
+
+            .registerbutton{
+                margin-top: 10px;
+                width: 30%;
+                border: none;
+                padding: 10px 10px;
+                background-color: teal;
+                color: white;
+                cursor: pointer;
+                margin-left: auto;
+                margin-right: 10px;
+                border-radius: 5px;
+
+
+                &.disabled{
+                opacity: 0.6;
+                }
+
+                &.prev{
+                margin-left:0;
+                }
+            }
+
+
+            .registerbuttoncontainer{
+                display:flex;
+                justify-content: space-between;
+
+
+                .registerbutton{
+                    margin-top: 10px;
+                    width: 30%;
+                    border: none;
+                    padding: 10px 10px;
+                    background-color: teal;
+                    color: white;
+                    cursor: pointer;
+                    margin-left: auto;
+                    margin-right: 10px;
+                    border-radius: 5px;
+
+
+                    &.disabled{
+                    opacity: 0.6;
+                    }
+
+                    &.prev{
+                    margin-left:0;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .registerwrapper2{
+        padding: 20px;
+        width: 40%;
+        background-color: white;
+        border-radius: 5px;
+
+        .registertitle2{
+            font-size: 24px;
+            font-weight: 300;
+        }
+
+        .registerform2{
+            display: flex;
+            flex-direction: column;
+
+            .registercontainer2{
+                display: flex;
+                align-items: center;
+                margin-bottom: 16px;
+                width: 100%;
+
+                .registerinputlabel2{
+                    font-size: 18px;
+                    width: 150px;
+                }
+
+                .registerinput2{
+                    margin: 0 8px;
+                    padding: 8px;
+                    border: 1.5px solid teal;
+                    border-radius: 5px;
+                    width: 70%;
+                    margin-left:auto;
+                }
+            }
+
+            .registerbutton2{
+                margin-top: 10px;
+                width: 30%;
+                border: none;
+                padding: 10px 10px;
+                background-color: teal;
+                color: white;
+                cursor: pointer;
+                margin-left: auto;
+                margin-right: 10px;
+                border-radius: 5px;
+
+
+                &.disabled{
+                opacity: 0.6;
+                }
+
+                &.prev{
+                margin-left:0;
+                }
+            }
+
+
+            .registerbuttoncontainer2{
+                display:flex;
+                justify-content: space-between;
+
+
+                .registerbutton2{
+                    margin-top: 10px;
+                    width: 30%;
+                    border: none;
+                    padding: 10px 10px;
+                    background-color: teal;
+                    color: white;
+                    cursor: pointer;
+                    margin-left: auto;
+                    margin-right: 10px;
+                    border-radius: 5px;
+
+
+                    &.disabled{
+                    opacity: 0.6;
+                    }
+
+                    &.prev{
+                    margin-left:0;
+                    }
+                }
+            }
+        }
+    }
+
+
+}

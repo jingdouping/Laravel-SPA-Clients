@@ -4,6 +4,7 @@ import MensImage from '../image/CategoryImage/austin-wade-iQn82USu8gs-unsplash.j
 import WomenImage from '../image/CategoryImage/joel-muniz-HvZDCuRnSaY-unsplash.jpg';
 import KidsImage from '../image/CategoryImage/kiana-bosman-0pB01U2NDCQ-unsplash.jpg';
 import './Categories.scss';
+import Product from './Product';
 
 const Categories = (props) => {
 

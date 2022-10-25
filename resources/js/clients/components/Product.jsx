@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import './Product.scss';
 
 const Product = (props) => {
     const quantity = props.item.sizequantityinfo.every(item=>{
@@ -13,10 +14,10 @@ const Product = (props) => {
 
   return (
     <div className='catproductscontainer' key={props.id}>
-        <div>
+        <div className='catproductscard'>
             <Link to={`/product/${props.item.product.product_code}/${props.item.id}`}>
                 <div className='catproductsimagewrapper'>
-                    <img className='catproductsimage' src={`http://127.0.0.1:5173/${props.item.topimage}`}></img>
+                    <img className='catproductsimage' src={`http://localhost:8000/${props.item.topimage}`}></img>
                 </div>
             </Link>
             {quantity ? <h3 style={{display:'flex',justifyContent:'center',marginTop:'4px',color:'red'}}>売り切れ</h3> :

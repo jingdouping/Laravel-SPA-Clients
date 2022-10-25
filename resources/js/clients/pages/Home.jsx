@@ -7,6 +7,7 @@ import Newsletter from '../components/Newsletter'
 import Products from '../components/Products'
 import Slider from '../components/Slider'
 
+
 const Home = () => {
   const [products,setProducts] = useState([])
   const [categoryProducts0,setCategoryProducts0] = useState([])
@@ -18,17 +19,17 @@ const Home = () => {
     {id:'',primary_category_name:'',secondarycategory:''},
   ])
 
-//   useEffect(()=>{
-//     axios.get(`/api/view-webproduct`).then(res=>{
-//       if(res.data.status === 200){
-//         setProducts(res.data.reversesubproducts);
-//         setCategoryProducts0(res.data.categoryproducts0)
-//         setCategoryProducts1(res.data.categoryproducts1)
-//         setCategoryProducts2(res.data.categoryproducts2)
-//         setPrimarycategory(res.data.primary_category)
-//       }
-//     })
-//   },[])
+  useEffect(()=>{
+    axios.get(`/api/view-webproduct`).then(res=>{
+      if(res.data.status === 200){
+        setProducts(res.data.reversesubproducts);
+        setCategoryProducts0(res.data.categoryproducts0)
+        setCategoryProducts1(res.data.categoryproducts1)
+        setCategoryProducts2(res.data.categoryproducts2)
+        setPrimarycategory(res.data.primary_category)
+      }
+    })
+  },[])
 
   return (
     <div>
