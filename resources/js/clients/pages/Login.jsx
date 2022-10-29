@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { loginaxios } from '../../app'
+import { Link, useNavigate } from 'react-router-dom'
+import { loginaxios } from '../../app.jsx'
 import { loggedin } from '../redux/loginRedux'
 import { useDispatch } from 'react-redux'
 import './Login.scss';
@@ -22,13 +22,10 @@ const Login = () => {
 
     const handleClick = (e) => {
         e.preventDefault()
-
         const data = {
         email:loginInput.email,
         password:loginInput.password,
         }
-
-
         loginaxios.get('/sanctum/csrf-cookie').then(response => {
         loginaxios.post('/login',data).then(res=>{
             if(res.data.status === 200){
@@ -40,7 +37,6 @@ const Login = () => {
             }else{
                 navigation('/');
             }
-
             }else if(res.data.status === 401){
             setError({password:res.data.message})
             }else{
@@ -51,18 +47,25 @@ const Login = () => {
         });
     }
 
+    const passwordForget = () => {
+        navigation('/passwordreset')
+    }
+
   return (
     <div className='logincontainer'>
         <div className='loginwrapper'>
             <h1 className='logintitle'>ログイン</h1>
             <form className='loginform'>
-                {/* <input type="hidden" name="_token" value={csrf_token} /> */}
                 <input className='logininput' placeholder="email" type='email' name='email' onChange={handleInput} />
                 <small style={{color:'red'}}>{error.email}</small>
                 <input className='logininput' placeholder="password" type='password' name='password' onChange={handleInput}/>
                 <small style={{color:'red'}}>{error.password}</small>
                 <button className='loginbutton' onClick={handleClick}>ログイン</button>
             </form>
+            <span onClick={passwordForget} className='passwordreset'>パスワードリセット</span>
+            <Link to='/register' style={{textDecoration:'none'}}>
+            <span className='register'>新規登録</span>
+            </Link>
         </div>
 
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
@@ -32,6 +33,9 @@ class ValidationServiceProvider extends ServiceProvider
         });
         Validator::extend('addresscode', function ($attribute, $value, $parameters, $validator) {
             return preg_match('/^[0-9]{3}-[0-9]{4}$/', $value);
+        });
+        Validator::extend('doesntexistemail', function ($attribute, $value, $parameters, $validator) {
+            return User::where('email',$value)->exists();
         });
     }
 }

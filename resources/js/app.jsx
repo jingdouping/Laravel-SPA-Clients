@@ -15,10 +15,13 @@ import Cart from "./clients/pages/Cart";
 import Swal from "sweetalert2";
 import { loggedin,loggedout } from './clients/redux/loginRedux'
 import Checkout from "./clients/pages/CheckOut";
+import PasswordReset from "./clients/pages/PasswordReset";
+import ResetPassword from "./clients/pages/ResetPassword";
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.post['Accept'] = 'application/json';
+
 
 export const loginaxios = axios.create({
   withCredentials:true,
@@ -41,6 +44,7 @@ function App() {
             dispatch(loggedout());
         }
     },[])
+
 
     loginaxios.interceptors.response.use(
         function(response){
@@ -82,6 +86,8 @@ function App() {
                 <Route path='/' element={<Home/>}/>
                 <Route path='/login' element={isLoggedIn === true ? <NoPage/> : <Login/>}/>
                 <Route path='/register' element={isLoggedIn === true ? <NoPage/> : <Register/>}/>
+                <Route path='/api/reset-password/:token' element={isLoggedIn === true ? <NoPage/> :<ResetPassword/>}/>
+                <Route path='/passwordreset' element={isLoggedIn === true ? <NoPage/> : <PasswordReset/>}/>
                 <Route path='/cart' element={isLoggedIn === true ? <Cart/> : <Home/>}/>
                 <Route path='/checkout' element={isLoggedIn === true ? <Checkout/> : <Home/>}/>
                 <Route path='/products/:cat_id' element={<ProductList/>}/>

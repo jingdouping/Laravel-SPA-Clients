@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\CardController;
 use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\NewPasswordController;
+use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +75,20 @@ Route::middleware(['auth:sanctum'])->group(function(){
 Route::middleware('auth:sanctum','isAPIAdmin')->group(function(){
     Route::get('checkAuthenticated',[AuthController::class,'AdminCheck']);
 });
+
+
+
+Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
+->middleware(['guest:'.config('fortify.guard')])
+->name('password.reset');
+
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+->middleware(['guest:'.config('fortify.guard')])
+->name('password.email');
+
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
+->middleware(['guest:'.config('fortify.guard')])
+->name('password.update');
 
 
 

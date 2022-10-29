@@ -171,7 +171,7 @@ const Register = () => {
                 </div>
 
                 <div className='registercontainer'>
-                    <span className='registerinputlabel'>Password:</span>
+                    <span className='registerinputlabel'>パスワード:</span>
                     <input className='registerinput' placeholder='password' type='password' name='password' value={registerInput.password} onChange={handleInput}/>
                 </div>
 
