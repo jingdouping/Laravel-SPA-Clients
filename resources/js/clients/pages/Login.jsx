@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { loginaxios } from '../../app.jsx'
+import {tologinaxios } from '../../app.jsx'
 import { loggedin } from '../redux/loginRedux'
 import { useDispatch } from 'react-redux'
 import './Login.scss';
+import Swal from 'sweetalert2'
 
 const Login = () => {
     const navigation = useNavigate();
@@ -26,24 +27,33 @@ const Login = () => {
         email:loginInput.email,
         password:loginInput.password,
         }
-        loginaxios.get('/sanctum/csrf-cookie').then(response => {
-        loginaxios.post('/login',data).then(res=>{
-            if(res.data.status === 200){
-            localStorage.setItem('auth_name',res.data.username);
-            localStorage.setItem('loggedin',true);
-            dispatch(loggedin());
-            if(res.data.role === 'admin'){
-                navigation('/admin');
-            }else{
-                navigation('/');
+        tologinaxios.get('/sanctum/csrf-cookie').then(response => {
+        tologinaxios.post('/login',data).then(res=>{
+        if(res.data.status === 200){
+        localStorage.setItem('auth_name',res.data.username);
+        localStorage.setItem('loggedin',true);
+        dispatch(loggedin());
+        if(res.data.role === 'admin'){
+            navigation('/admin');
+        }else{
+            navigation('/');
+        }
+        }else if(res.data.status === 401){
+        setError({password:res.data.message})
+        }else{
+        setError(res.data.validation_errors)
+        }
+        }).catch(error => {
+            if(error.response.status === 429){
+                console.log(error);
+                Swal.fire({
+                    title: 'Error',
+                    text:'ログインに５回失敗しました。５分後に再開できます。',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
             }
-            }else if(res.data.status === 401){
-            setError({password:res.data.message})
-            }else{
-            setError(res.data.validation_errors)
-            }
-
-        })
+        });
         });
     }
 

@@ -17,24 +17,8 @@ use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 |
 */
 
-// Route::get('/{every?}', function () {
-//     return view('welcome');
-// });
-// Route::get('/test', function () {
-//     return view('welcome');
-// });
 Route::post('register',[AuthController::class,'register']);
-Route::post('login',[AuthController::class,'login']);
-
-
-// Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-// ->middleware(['guest:'.config('fortify.guard')])
-// ->name('password.email');
-
-
-// Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
-// ->middleware(['guest:'.config('fortify.guard')])
-// ->name('password.reset');
+Route::post('login',[AuthController::class,'login'])->middleware('throttle:login');
 
 Route::fallback(function () {
     return view('welcome');

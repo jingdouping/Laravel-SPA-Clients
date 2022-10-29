@@ -33,6 +33,16 @@ export const loginaxios = axios.create({
   },
 })
 
+export const tologinaxios = axios.create({
+  withCredentials:true,
+  baseURL:'http://127.0.0.1:8000/',
+  headers:{
+    'X-Requested-With': 'XMLHttpRequest',
+    'Content-Type':'application/json',
+    'Accept':'application/json',
+  },
+})
+
 function App() {
     const isLoggedIn = useSelector(state=>state.login.login)
     const dispatch = useDispatch();
@@ -84,10 +94,10 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home/>}/>
-                <Route path='/login' element={isLoggedIn === true ? <NoPage/> : <Login/>}/>
-                <Route path='/register' element={isLoggedIn === true ? <NoPage/> : <Register/>}/>
-                <Route path='/api/reset-password/:token' element={isLoggedIn === true ? <NoPage/> :<ResetPassword/>}/>
-                <Route path='/passwordreset' element={isLoggedIn === true ? <NoPage/> : <PasswordReset/>}/>
+                <Route path='/login' element={isLoggedIn === true ? <Home/> : <Login/>}/>
+                <Route path='/register' element={isLoggedIn === true ? <Home/> : <Register/>}/>
+                <Route path='/api/reset-password/:token' element={isLoggedIn === true ? <Home/> :<ResetPassword/>}/>
+                <Route path='/passwordreset' element={isLoggedIn === true ? <Home/> : <PasswordReset/>}/>
                 <Route path='/cart' element={isLoggedIn === true ? <Cart/> : <Home/>}/>
                 <Route path='/checkout' element={isLoggedIn === true ? <Checkout/> : <Home/>}/>
                 <Route path='/products/:cat_id' element={<ProductList/>}/>
