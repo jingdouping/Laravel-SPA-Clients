@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.scss';
 import Announcement from './Announcement';
 import { loginaxios } from '../../app';
-import {loggedout} from '../redux/loginRedux'
+import {loggedout} from '../../redux/loginRedux'
 import Swal from 'sweetalert2';
 
 const Navbar = () => {

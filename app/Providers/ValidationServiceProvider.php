@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -36,6 +37,9 @@ class ValidationServiceProvider extends ServiceProvider
         });
         Validator::extend('doesntexistemail', function ($attribute, $value, $parameters, $validator) {
             return User::where('email',$value)->exists();
+        });
+        Validator::extend('existadminname', function ($attribute, $value, $parameters, $validator) {
+            return Admin::where('name',$value)->exists();
         });
     }
 }

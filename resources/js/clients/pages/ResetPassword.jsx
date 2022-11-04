@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import { loginaxios } from '../../app.jsx'
-import { loggedin } from '../redux/loginRedux'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import './ResetPassword.scss';
 import Swal from 'sweetalert2'
 
 const ResetPassword = () => {
-    const navigation = useNavigate();
-    const dispatch = useDispatch();
     const [error,setError] = useState([]);
     let {token} = useParams()
 
@@ -23,7 +19,6 @@ const ResetPassword = () => {
         setLoginInput({...loginInput,[e.target.name]:e.target.value})
     }
 
-    console.log(loginInput);
 
     const handleClick = (e) => {
         e.preventDefault()
@@ -41,7 +36,6 @@ const ResetPassword = () => {
             }
         }).catch(error => {
             if(error.response.status === 422){
-                console.log(error);
                 Swal.fire({
                     title: 'Error',
                     text:error.response.data.message,

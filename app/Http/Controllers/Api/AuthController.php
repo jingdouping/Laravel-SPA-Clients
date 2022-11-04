@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +87,37 @@ class AuthController extends Controller
             ]);
         }
 
+    }
+
+    public function adminlogin(Request $request){
+        $validator = Validator::make($request->all(),[
+            'adminname' => 'required|existadminname',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ]);
+        }
+        $admin = Admin::where('name', $request->adminname)->first();
+        if (!$admin || !Hash::check($request->password, $admin->password)) {
+            return response()->json([
+                'status' => 401,
+                'message' => 'パスワードが違います',
+            ]);
+        }
+
+        if (!$validator->fails()) {
+            $session = $request->session()->regenerate();
+            return response()->json([
+                'status' => 200,
+                'session' => $session,
+                // 'token' => $token,
+                'message' => 'Logged In Successfully',
+                // 'role' => $role,
+            ]);
+        }
     }
 
     public function logout(Request $request){

@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
@@ -54,7 +55,7 @@ Route::get('view-webproduct',[SubProductController::class,'viewWebProduct']);
 //cart
 Route::post('add-cart',[CartController::class,'addCart']);
 
-Route::middleware('auth:sanctum','throttle:api')->group(function(){
+Route::middleware('auth:users','throttle:api')->group(function(){
     Route::get('view-cart',[CartController::class,'viewCart']);
     Route::post('remove-product',[CartController::class,'removeProduct']);
     Route::post('inc-product',[CartController::class,'increaseProduct']);
@@ -67,7 +68,7 @@ Route::middleware('auth:sanctum','throttle:api')->group(function(){
 });
 
 
-Route::middleware(['auth:sanctum'])->group(function(){
+Route::middleware(['auth:users'])->group(function(){
     Route::post('logout',[AuthController::class,'logout']);
 
 });
@@ -95,6 +96,11 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
 
 //admin側
 Route::get('view-users',[UserController::class,'index']);
+
+
+Route::get('view-admins',[AdminController::class,'index']);
+Route::post('store-admin',[AdminController::class,'adminstore']);
+Route::post('adminlogout',[AdminController::class,'adminlogout']);
 
 
 Route::post('store-firstcategory',[CategoryController::class,'firstcategorystore']);

@@ -6,7 +6,6 @@ import Swal from 'sweetalert2'
 import { loginaxios } from '../../app'
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { loggedout,loggedin } from '../redux/loginRedux'
 import './Cart.scss'
 
 

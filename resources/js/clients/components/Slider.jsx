@@ -63,7 +63,6 @@ const Slider = () => {
         className="swiper"
         >
             {sliderItems.map(item => {
-                console.log(item.img);
                 return (
                     <SwiperSlide key={item.id} className='slideimage'>
                         <img src={item.img}/>

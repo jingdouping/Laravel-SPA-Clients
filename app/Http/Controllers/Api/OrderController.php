@@ -10,6 +10,7 @@ use App\Models\SizeQuantityInfo;
 use App\Models\SubProduct;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -69,6 +70,21 @@ class OrderController extends Controller
                     ]);
 
                 };
+
+
+
+                // $username = auth('sanctum')->user()->name;
+                // $email = auth('sanctum')->user()->email;
+
+                // Mail::send('ordermail',[
+                //     'orderitem' => $carts,
+                //     'username' => $username,
+                // ],function ($message) use ($email) {
+                //     $message->to($email)
+                //     ->subject('テストタイトル');
+                // });
+
+
                 return response()->json([
                     'status' => 200,
                     'message' => '注文完了しました',
@@ -105,6 +121,20 @@ class OrderController extends Controller
                     ]);
                     // $cart->delete();
                 }
+                
+
+            //    $username = auth('sanctum')->user()->name;
+            //    $email = auth('sanctum')->user()->email;
+
+            //    Mail::send('ordermail',[
+            //        'orderitem' => $carts,
+            //         'username' => $username,
+            //     ],function ($message) use ($email) {
+            //         $message->to($email)
+            //         ->subject('テストタイトル');
+            //     });
+
+
                 return response()->json([
                     'status' => 200,
                     'message' => '注文完了しました',

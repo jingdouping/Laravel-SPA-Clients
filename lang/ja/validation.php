@@ -85,7 +85,7 @@ return [
     'mac_address' => 'The :attribute must be a valid MAC address.',
     'max' => [
         'array' => 'The :attribute must not have more than :max items.',
-        'file' => 'The :attribute must not be greater than :max kilobytes.',
+        'file' => ':attributeは:maxKB以下でお願いします。',
         'numeric' => 'The :attribute must not be greater than :max.',
         'string' => 'The :attribute must not be greater than :max characters.',
     ],
@@ -93,7 +93,7 @@ return [
     'mimetypes' => 'The :attribute must be a file of type: :values.',
     'min' => [
         'array' => 'The :attribute must have at least :min items.',
-        'file' => 'The :attribute must be at least :min kilobytes.',
+        'file' => ':attribute must be at least :min kilobytes.',
         'numeric' => ':attributeは1以上の数値のみ入力できます。',
         'string' => ':attributeは:min文字以上でお願いします。',
     ],
@@ -140,6 +140,7 @@ return [
     'sizeval' => ':attributeはアルファベットもしくは数字にて入力してください。',
     'addresscode' => '正しい:attributeを入力してください。',
     'doesntexistemail' => '登録時に入力した:attributeを入力してください。',
+    'existadminname' => ':attributeが違います。',
 
     /*
     |--------------------------------------------------------------------------
@@ -192,6 +193,7 @@ return [
         'address_code' => '郵便番号',
         'address1' => '住所',
         'post_code' => '丁目/番地/号',
+        'adminname' => '管理者名',
 
     ],
 

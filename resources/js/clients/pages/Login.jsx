@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {tologinaxios } from '../../app.jsx'
-import { loggedin } from '../redux/loginRedux'
+import { loggedin } from '../../redux/loginRedux'
 import { useDispatch } from 'react-redux'
 import './Login.scss';
 import Swal from 'sweetalert2'
@@ -45,7 +45,6 @@ const Login = () => {
         }
         }).catch(error => {
             if(error.response.status === 429){
-                console.log(error);
                 Swal.fire({
                     title: 'Error',
                     text:'ログインに５回失敗しました。５分後に再開できます。',

@@ -19,6 +19,7 @@ use Laravel\Fortify\Http\Controllers\PasswordResetLinkController;
 
 Route::post('register',[AuthController::class,'register']);
 Route::post('login',[AuthController::class,'login'])->middleware('throttle:login');
+Route::post('adminlogin',[AuthController::class,'adminlogin']);
 
 Route::fallback(function () {
     return view('welcome');

@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./clients/pages/Home";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import store from "./clients/redux/store";
+import store from "./redux/store";
 import './app.scss';
 import Product from "./clients/pages/Product";
 import ProductList from "./clients/pages/ProductList";
@@ -13,10 +13,28 @@ import Login from "./clients/pages/Login";
 import Register from "./clients/pages/Register";
 import Cart from "./clients/pages/Cart";
 import Swal from "sweetalert2";
-import { loggedin,loggedout } from './clients/redux/loginRedux'
+import { loggedin,loggedout } from './redux/loginRedux'
+import { adminloggedin,adminloggedout } from './redux/adminloginRedux'
 import Checkout from "./clients/pages/CheckOut";
 import PasswordReset from "./clients/pages/PasswordReset";
 import ResetPassword from "./clients/pages/ResetPassword";
+import List from './admin/pages/list/List';
+import Single from './admin/pages/single/Single';
+import New from './admin/pages/new/New';
+import NewProduct from './admin/pages/product/NewProduct';
+import NewFirstCategory from './admin/pages/category/NewFirstCategory';
+import NewSecondCategory from './admin/pages/category/NewSecondCategory';
+import EditFirstCategory from './admin/pages/category/EditFirstCategory';
+import EditSecondCategory from './admin/pages/category/EditSecondCategory';
+import EditProduct from './admin/pages/product/EditProduct';
+import EditSubProduct from './admin/pages/subproducts/EditSubProduct';
+import NewSubProduct from './admin/pages/subproducts/NewSubProduct';
+import AddSize from './admin/pages/size/AddSize';
+import EditSize from './admin/pages/size/EditSize';
+import SizeDatatable from './admin/components/datatable/SizeDatatable';
+import NewAdmin from "./admin/pages/admin/NewAdmin";
+import AdminLogin from "./admin/pages/login/AdminLogin";
+
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -45,6 +63,7 @@ export const tologinaxios = axios.create({
 
 function App() {
     const isLoggedIn = useSelector(state=>state.login.login)
+    const isAdminLoggedIn = useSelector(state=>state.adminlogin.adminlogin)
     const dispatch = useDispatch();
 
     useEffect(()=>{
@@ -53,8 +72,12 @@ function App() {
         }else if(!localStorage.getItem('loggedin')){
             dispatch(loggedout());
         }
+        if(localStorage.getItem('adminloggedin')){
+            dispatch(adminloggedin());
+        }else if(!localStorage.getItem('adminloggedin')){
+            dispatch(adminloggedout());
+        }
     },[])
-
 
     loginaxios.interceptors.response.use(
         function(response){
@@ -102,6 +125,44 @@ function App() {
                 <Route path='/checkout' element={isLoggedIn === true ? <Checkout/> : <Home/>}/>
                 <Route path='/products/:cat_id' element={<ProductList/>}/>
                 <Route path='/product/:product_code/:onlyid' element={<Product/>}/>
+
+                <Route path="admin">
+                    <Route index element={isAdminLoggedIn === true ? <List/> : <AdminLogin/>}/>
+                    <Route path="new" element={isAdminLoggedIn === true ? <NewAdmin title='Add New Admin'/> : <NoPage/>}/>
+                    <Route path='users'>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
+                        <Route path=':userId' element={isAdminLoggedIn === true ? <Single/> : <NoPage/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <New title='Add New User'/> : <NoPage/>}/>
+                    </Route>
+                    <Route path='products'>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
+                        <Route path=':productid' element={isAdminLoggedIn === true ? <EditProduct title='Edit New Product'/> : <NoPage/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <NewProduct title='Add New Product'/> : <NoPage/>}/>
+                    </Route>
+                    <Route path='subproducts'>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
+                        <Route path=':productid' element={isAdminLoggedIn === true ? <EditSubProduct title='Edit Sub Product'/> : <NoPage/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <NewSubProduct title='Add Sub Product'/> : <NoPage/>}/>
+                        <Route path='new/:productcode' element={isAdminLoggedIn === true ? <NewSubProduct title='Add Sub Product'/> : <NoPage/>}/>
+                        <Route path='size/:productid' element={isAdminLoggedIn === true ?<AddSize title='Add Size, Quantity'/> : <NoPage/>}/>
+                        <Route path='editsize/:id/:subproduct_id' element={isAdminLoggedIn === true ?<EditSize title='Add Size, Quantity'/> : <NoPage/>}/>
+                        <Route path='viewsize/:productid' element={isAdminLoggedIn === true ? <SizeDatatable title='Add Size, Quantity'/> : <NoPage/>}/>
+                    </Route>
+                    <Route path='firstcategories'>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
+                        <Route path=':categoryid' element={isAdminLoggedIn === true ? <EditFirstCategory title='Edit First Category'/>: <NoPage/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <NewFirstCategory title='Add New First Category'/>: <NoPage/>}/>
+                    </Route>
+                    <Route path='secondcategories'>
+                        <Route index element={isAdminLoggedIn === true ?<List/> : <NoPage/>}/>
+                        <Route path=':categoryid' element={isAdminLoggedIn === true ? <EditSecondCategory title='Edit Second Category'/> : <NoPage/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <NewSecondCategory title='Add New Second Category'/> : <NoPage/>}/>
+                    </Route>
+                    <Route path='orders'>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
+                    </Route>
+                </Route>
+
                 <Route path='*' element={<NoPage/>}/>
             </Routes>
         </BrowserRouter>

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { loginaxios } from '../../app'
 import { useDispatch } from 'react-redux'
-import { loggedin } from '../redux/loginRedux'
+import { loggedin } from '../../redux/loginRedux'
 import './Register.scss'
 
 
