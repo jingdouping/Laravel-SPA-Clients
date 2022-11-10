@@ -1,9 +1,9 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./newCategory.scss";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { adminloginaxios } from "../../../app";
 
 export default function EditSecondCategory(props) {
   const navigate = useNavigate()
@@ -21,7 +21,7 @@ export default function EditSecondCategory(props) {
 
   let {categoryid} = useParams();
   useEffect(()=>{
-    axios.get(`/api/edit-secondcategory/${categoryid}`).then(res=>{
+    adminloginaxios.get(`/api/edit-secondcategory/${categoryid}`).then(res=>{
       if(res.data.status === 200){
         setCategoryList({...categoryList,secondary_category_name:res.data.secondary_category,primary_category_id:res.data.primary_category});
 
@@ -40,7 +40,7 @@ export default function EditSecondCategory(props) {
 
   const updateCategory = (e) => {
     e.preventDefault()
-    axios.post(`/api/update-secondcategory/${categoryid}`,category).then(res => {
+    adminloginaxios.post(`/api/update-secondcategory/${categoryid}`,category).then(res => {
       if(res.data.status === 200){
         // document.getElementById('CATEGORY_FORM').reset();
         Swal.fire({

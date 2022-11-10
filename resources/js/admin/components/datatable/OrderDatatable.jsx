@@ -3,7 +3,7 @@ import './datatable.scss'
 import { DataGrid } from '@mui/x-data-grid';
 import { ordersColumns,userRows } from '../../datatablesource';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { adminloginaxios } from '../../../app';
 
 const OrderDatatable = () => {
   const [data,setData] = useState(userRows)
@@ -11,7 +11,7 @@ const OrderDatatable = () => {
 
 
   useEffect(()=>{
-    axios.get('/api/view-orders').then(res=>{
+    adminloginaxios.get('/api/view-orders').then(res=>{
       if(res.status === 200){
         setOrders(res.data.orders)
       }

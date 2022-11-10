@@ -46,7 +46,17 @@ export const loginaxios = axios.create({
   baseURL:'http://127.0.0.1:8000/',
   headers:{
     'X-Requested-With': 'XMLHttpRequest',
-    'Content-Type':'application/json',
+    // 'Content-Type':'application/json',
+    'Accept':'application/json',
+  },
+})
+
+export const adminloginaxios = axios.create({
+  withCredentials:true,
+  baseURL:'http://127.0.0.1:8000/',
+  headers:{
+    'X-Requested-With': 'XMLHttpRequest',
+    // 'Content-Type':'application/json',
     'Accept':'application/json',
   },
 })
@@ -113,6 +123,40 @@ function App() {
         }
     )
 
+    adminloginaxios.interceptors.response.use(
+        function(response){
+            return response;
+        },
+        function(error){
+            if(error.response.status === 419){
+                Swal.fire({
+                    title: 'Error',
+                    text:'セッションが切れました。もう一度ログインしてください',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+                localStorage.removeItem('adminloggedin');
+                dispatch(adminloggedout());
+            }else if(error.response.status === 429){
+                Swal.fire({
+                    title: 'Error',
+                    text:'申し訳ございません、アクセスが多すぎます。時間をおいてもう一度お願いします。',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+            }else if(error.response.status === 401){
+                Swal.fire({
+                    title: 'Error',
+                    text:'セッションが切れました。もう一度ログインしてください',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                })
+                localStorage.removeItem('adminloggedin');
+                dispatch(adminloggedout());
+            }
+        }
+    )
+
     return (
         <BrowserRouter>
             <Routes>
@@ -128,38 +172,38 @@ function App() {
 
                 <Route path="admin">
                     <Route index element={isAdminLoggedIn === true ? <List/> : <AdminLogin/>}/>
-                    <Route path="new" element={isAdminLoggedIn === true ? <NewAdmin title='Add New Admin'/> : <NoPage/>}/>
+                    <Route path="new" element={isAdminLoggedIn === true ? <NewAdmin title='Add New Admin'/> : <AdminLogin/>}/>
                     <Route path='users'>
-                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
-                        <Route path=':userId' element={isAdminLoggedIn === true ? <Single/> : <NoPage/>}/>
-                        <Route path='new' element={isAdminLoggedIn === true ? <New title='Add New User'/> : <NoPage/>}/>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <AdminLogin/>}/>
+                        <Route path=':userId' element={isAdminLoggedIn === true ? <Single/> : <AdminLogin/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <New title='Add New User'/> : <AdminLogin/>}/>
                     </Route>
                     <Route path='products'>
-                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
-                        <Route path=':productid' element={isAdminLoggedIn === true ? <EditProduct title='Edit New Product'/> : <NoPage/>}/>
-                        <Route path='new' element={isAdminLoggedIn === true ? <NewProduct title='Add New Product'/> : <NoPage/>}/>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <AdminLogin/>}/>
+                        <Route path=':productid' element={isAdminLoggedIn === true ? <EditProduct title='Edit New Product'/> : <AdminLogin/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <NewProduct title='Add New Product'/> : <AdminLogin/>}/>
                     </Route>
                     <Route path='subproducts'>
-                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
-                        <Route path=':productid' element={isAdminLoggedIn === true ? <EditSubProduct title='Edit Sub Product'/> : <NoPage/>}/>
-                        <Route path='new' element={isAdminLoggedIn === true ? <NewSubProduct title='Add Sub Product'/> : <NoPage/>}/>
-                        <Route path='new/:productcode' element={isAdminLoggedIn === true ? <NewSubProduct title='Add Sub Product'/> : <NoPage/>}/>
-                        <Route path='size/:productid' element={isAdminLoggedIn === true ?<AddSize title='Add Size, Quantity'/> : <NoPage/>}/>
-                        <Route path='editsize/:id/:subproduct_id' element={isAdminLoggedIn === true ?<EditSize title='Add Size, Quantity'/> : <NoPage/>}/>
-                        <Route path='viewsize/:productid' element={isAdminLoggedIn === true ? <SizeDatatable title='Add Size, Quantity'/> : <NoPage/>}/>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <AdminLogin/>}/>
+                        <Route path=':productid' element={isAdminLoggedIn === true ? <EditSubProduct title='Edit Sub Product'/> : <AdminLogin/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <NewSubProduct title='Add Sub Product'/> : <AdminLogin/>}/>
+                        <Route path='new/:productcode' element={isAdminLoggedIn === true ? <NewSubProduct title='Add Sub Product'/> : <AdminLogin/>}/>
+                        <Route path='size/:productid' element={isAdminLoggedIn === true ?<AddSize title='Add Size, Quantity'/> : <AdminLogin/>}/>
+                        <Route path='editsize/:id/:subproduct_id' element={isAdminLoggedIn === true ?<EditSize title='Add Size, Quantity'/> : <AdminLogin/>}/>
+                        <Route path='viewsize/:productid' element={isAdminLoggedIn === true ? <SizeDatatable title='Add Size, Quantity'/> : <AdminLogin/>}/>
                     </Route>
                     <Route path='firstcategories'>
-                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
-                        <Route path=':categoryid' element={isAdminLoggedIn === true ? <EditFirstCategory title='Edit First Category'/>: <NoPage/>}/>
-                        <Route path='new' element={isAdminLoggedIn === true ? <NewFirstCategory title='Add New First Category'/>: <NoPage/>}/>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <AdminLogin/>}/>
+                        <Route path=':categoryid' element={isAdminLoggedIn === true ? <EditFirstCategory title='Edit First Category'/>: <AdminLogin/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <NewFirstCategory title='Add New First Category'/>: <AdminLogin/>}/>
                     </Route>
                     <Route path='secondcategories'>
-                        <Route index element={isAdminLoggedIn === true ?<List/> : <NoPage/>}/>
-                        <Route path=':categoryid' element={isAdminLoggedIn === true ? <EditSecondCategory title='Edit Second Category'/> : <NoPage/>}/>
-                        <Route path='new' element={isAdminLoggedIn === true ? <NewSecondCategory title='Add New Second Category'/> : <NoPage/>}/>
+                        <Route index element={isAdminLoggedIn === true ?<List/> : <AdminLogin/>}/>
+                        <Route path=':categoryid' element={isAdminLoggedIn === true ? <EditSecondCategory title='Edit Second Category'/> : <AdminLogin/>}/>
+                        <Route path='new' element={isAdminLoggedIn === true ? <NewSecondCategory title='Add New Second Category'/> : <AdminLogin/>}/>
                     </Route>
                     <Route path='orders'>
-                        <Route index element={isAdminLoggedIn === true ? <List/> : <NoPage/>}/>
+                        <Route index element={isAdminLoggedIn === true ? <List/> : <AdminLogin/>}/>
                     </Route>
                 </Route>
 

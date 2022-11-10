@@ -18,10 +18,14 @@ const Sidebar = () => {
 
     const logoutHandler =(e)=>{
         e.preventDefault();
-        localStorage.removeItem('auth_name');
-        localStorage.removeItem('adminloggedin');
-        dispatch(adminloggedout())
-        navigation('/admin');
+        tologinaxios.post('api/adminlogout').then(res=>{
+            if(res.data.status === 200){
+                localStorage.removeItem('auth_name');
+                localStorage.removeItem('adminloggedin');
+                dispatch(adminloggedout())
+                navigation('/admin');
+            }
+            });
     }
 
   return (

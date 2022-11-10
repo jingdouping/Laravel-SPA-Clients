@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './datatable.scss'
 import { DataGrid } from '@mui/x-data-grid';
 import { userColumns,userRows } from '../../datatablesource';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { adminloginaxios } from '../../../app';
 
 const UserDatatable = () => {
   const [data,setData] = useState(userRows)
@@ -11,7 +10,7 @@ const UserDatatable = () => {
 
 
   useEffect(()=>{
-    axios.get('/api/view-users').then(res=>{
+    adminloginaxios.get('/api/view-users').then(res=>{
       if(res.status === 200){
         setUsers(res.data.users)
       }
@@ -21,7 +20,7 @@ const UserDatatable = () => {
 
   return (
     <div className='datatable'>
-      
+
       <DataGrid
       className='datagrid'
         rows={users}
@@ -30,7 +29,7 @@ const UserDatatable = () => {
         rowsPerPageOptions={[9]}
         checkboxSelection
       />
-      
+
     </div>
   )
 }

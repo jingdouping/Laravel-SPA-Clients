@@ -1,12 +1,12 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
 import {SwiperSlide,Swiper } from 'swiper/react';
 import { Navigation } from "swiper";
 import NoImage from '../../image/no-image-icon-0.jpeg';
+import { adminloginaxios } from "../../../app";
 // import "./editSubProduct.scss";
 
 
@@ -45,7 +45,7 @@ export default function EditSubProduct(props) {
   let {productid} = useParams();
   useEffect(()=>{
     // const category_id = props.match.params.id;
-    axios.get(`/api/edit-subproduct/${productid}`).then(res=>{
+    adminloginaxios.get(`/api/edit-subproduct/${productid}`).then(res=>{
       if(res.data.status === 200){
         setProductInput({...productInput,product_name:res.data.product.product.product_name,product_code:res.data.product.product.product_code,image:res.data.product.image,description:res.data.product.product.description,category:res.data.product.product.secondary_category_id,price:res.data.product.product.price,color:res.data.product.color});
         setImage({...image,topimage:res.data.product.topimage,image1:res.data.product.image1,image2:res.data.product.image2,image3:res.data.product.image3,image4:res.data.product.image4,image5:res.data.product.image5})
@@ -95,7 +95,7 @@ export default function EditSubProduct(props) {
     formData.append('product_code',productInput.product_code);
     formData.append('color',productInput.color);
 
-    axios.post(`/api/update-subproduct/${productid}`,formData).then(res=>{
+    adminloginaxios.post(`/api/update-subproduct/${productid}`,formData).then(res=>{
       if(res.data.status === 200){
         navigate('/admin/subproducts');
         Swal.fire({

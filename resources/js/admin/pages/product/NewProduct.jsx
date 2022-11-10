@@ -1,8 +1,8 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./newProduct.scss";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
+import { adminloginaxios } from "../../../app";
 
 export default function NewProduct(props) {
   const [categoryList,setCategoryList] = useState([])
@@ -21,7 +21,7 @@ export default function NewProduct(props) {
   const [displayPrice,setDisplayPrice] = useState('');
 
   useEffect(()=>{
-    axios.get('/api/view-firstcategory').then(res=>{
+    adminloginaxios.get('/api/view-firstcategory').then(res=>{
       if(res.status === 200){
         setCategoryList(res.data.primary_category)
       }
@@ -71,7 +71,7 @@ export default function NewProduct(props) {
     formData.append('category',productInput.category);
 
 
-    axios.post('/api/store-product',formData).then(res=>{
+    adminloginaxios.post('/api/store-product',formData).then(res=>{
       if(res.data.status === 200){
         setProductInput({
           product_name:'',

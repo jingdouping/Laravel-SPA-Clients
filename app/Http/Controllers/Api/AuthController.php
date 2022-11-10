@@ -36,7 +36,7 @@ class AuthController extends Controller
             'post_code' =>$request->post_code,
             'mansion_name' => $request->mansion_name,
         ]);
-        Auth::login($user);
+        Auth::guard('users')->login($user);
         // $session = $request->session()->regenerate();
         return response()->json([
             'status' => 200,
@@ -48,6 +48,7 @@ class AuthController extends Controller
 
 
     public function login(Request $request){
+        // $input = $request->all();
         $validator = Validator::make($request->all(),[
             'email' => 'required|max:191|email',
             'password' => 'required',
@@ -74,7 +75,11 @@ class AuthController extends Controller
             ]);
         }
 
-        if (Auth::attempt($validator->validate())) {
+
+        // if (Auth::attempt($validator->validate())) {
+        if (Auth::guard('users')->attempt($validator->validate())) {
+        // if (Auth::guard('users')->attempt(['email' => $input['email'],'password' => $input['password']])) {
+            // Auth::guard('users')->login($user);
             $session = $request->session()->regenerate();
             return response()->json([
                 'status' => 200,
@@ -86,12 +91,11 @@ class AuthController extends Controller
                 // 'role' => $role,
             ]);
         }
-
     }
 
     public function adminlogin(Request $request){
         $validator = Validator::make($request->all(),[
-            'adminname' => 'required|existadminname',
+            'name' => 'required|existadminname',
             'password' => 'required',
         ]);
 
@@ -100,7 +104,7 @@ class AuthController extends Controller
                 'validation_errors' => $validator->errors(),
             ]);
         }
-        $admin = Admin::where('name', $request->adminname)->first();
+        $admin = Admin::where('name', $request->name)->first();
         if (!$admin || !Hash::check($request->password, $admin->password)) {
             return response()->json([
                 'status' => 401,
@@ -108,7 +112,8 @@ class AuthController extends Controller
             ]);
         }
 
-        if (!$validator->fails()) {
+        // if (Auth::attempt($validator->validate())) {
+        if (Auth::guard('admins')->attempt($validator->validate())) {
             $session = $request->session()->regenerate();
             return response()->json([
                 'status' => 200,
@@ -120,12 +125,22 @@ class AuthController extends Controller
         }
     }
 
+    public function adminlogout(Request $request){
+        Auth::guard('admins')->logout();
+        // $request->session()->invalidate();
+        // $request->session()->regenerateToken();
+        return response()->json([
+            'status'=>200,
+            'message'=>'ログアウトしました',
+        ]);
+    }
+
     public function logout(Request $request){
-        Auth::guard('web')->logout();
+        Auth::guard('users')->logout();
 
-        $request->session()->invalidate();
+        // $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+        // $request->session()->regenerateToken();
 
         return response()->json([
             'status'=>200,

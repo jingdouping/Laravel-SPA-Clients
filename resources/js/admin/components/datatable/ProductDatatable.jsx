@@ -3,14 +3,14 @@ import './datatable.scss'
 import { DataGrid } from '@mui/x-data-grid';
 import { productColumns,userRows } from '../../datatablesource';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { adminloginaxios } from '../../../app';
 
 const ProductDatatable = () => {
 
   const [productList,setProductList] = useState ([])
 
   useEffect(()=>{
-    axios.get('/api/view-product').then(res=>{
+    adminloginaxios.get('/api/view-product').then(res=>{
       if(res.status === 200){
         setProductList(res.data.products)
       }
@@ -34,7 +34,7 @@ const ProductDatatable = () => {
       const thisClicked = e.currentTarget;
       thisClicked.innerText = 'Deleting';
 
-      axios.post(`/api/delete-product/${id}`).then(res=>{
+      adminloginaxios.post(`/api/delete-product/${id}`).then(res=>{
         if(res.data.status === 200){
           setProductList(productList.filter(prev=>prev.id !== id))
         }else if(res.data.status === 404){

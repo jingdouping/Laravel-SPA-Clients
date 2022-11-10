@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
     public function addCart(Request $request){
-        if(auth('sanctum')->check()){
-            $user_id = auth('sanctum')->user()->id;
+        // if(auth('sanctum')->check()){
+        if(auth()->guard('users')->user()){
+            // $user_id = auth('sanctum')->user()->id;
+            $user_id = auth()->guard('users')->user()->id;
 
             // $subproduct_id = $request->id;
             $db_quantity = SizeQuantityInfo::where('id',$request->id)->value('quantity');
@@ -157,7 +159,7 @@ class CartController extends Controller
         //     'auth' => Auth::check(),
         // ]);
 
-        if(auth('sanctum')->check()){
+        if(auth('users')->check()){
 
             $user_id = auth('sanctum')->user()->id;
             $user = User::Where('id',$user_id)->get();

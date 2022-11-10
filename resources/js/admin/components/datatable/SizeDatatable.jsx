@@ -3,8 +3,8 @@ import './sizedatatable.scss'
 import { DataGrid } from '@mui/x-data-grid';
 import { sizeColumns } from '../../datatablesource';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
 import Sidebar from '../sidebar/Sidebar';
+import { adminloginaxios } from '../../../app';
 
 
 const SizeDatatable = () => {
@@ -13,7 +13,7 @@ const SizeDatatable = () => {
   // const [mount,setMount] = useState(false)
 
   useEffect(()=>{
-    axios.get(`/api/view-size/${productid}`).then(res=>{
+    adminloginaxios.get(`/api/view-size/${productid}`).then(res=>{
       if(res.status === 200){
         let sizearray = []
         res.data.size.map(item=>{
@@ -28,7 +28,7 @@ const SizeDatatable = () => {
     const result = window.confirm('本当に削除してよろしいですか？')
     if(result){
       e.preventDefault();
-      axios.post(`/api/delete-size/${id}`).then(res=>{
+      adminloginaxios.post(`/api/delete-size/${id}`).then(res=>{
         if(res.data.status === 200){
           setSizeList(sizeList.filter(prev=>prev.id !== id))
         }

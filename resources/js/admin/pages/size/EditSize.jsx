@@ -1,7 +1,7 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { adminloginaxios } from '../../../app'
 import Sidebar from '../../components/sidebar/Sidebar'
 import './addSize.scss'
 
@@ -17,7 +17,7 @@ const AddSize = (props) => {
 
 
   useEffect(()=>{
-    axios.get(`api/edit-size/${id}`).then(res=>{
+    adminloginaxios.get(`api/edit-size/${id}`).then(res=>{
       if(res.data.status === 200){
         setInput({...input,size:res.data.size[0].size,quantity:res.data.size[0].quantity,is_selling:res.data.size[0].is_selling})
       }
@@ -32,7 +32,7 @@ const AddSize = (props) => {
 
   const inputSubmit = (e) => {
     e.preventDefault();
-    axios.post(`api/update-size/${id}/${subproduct_id}`,input).then(res=>{
+    adminloginaxios.post(`api/update-size/${id}/${subproduct_id}`,input).then(res=>{
       if(res.data.status === 200){
         document.getElementById('FORM').reset();
         Swal.fire({

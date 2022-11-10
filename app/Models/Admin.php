@@ -14,4 +14,5 @@ class Admin extends Authenticatable
 
     protected $guarded = [];
     protected $dates = ['deleted_at'];
+
 }

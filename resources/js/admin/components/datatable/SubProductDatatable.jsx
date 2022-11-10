@@ -3,7 +3,7 @@ import './datatable.scss'
 import { DataGrid } from '@mui/x-data-grid';
 import { subProductColumns } from '../../datatablesource';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { adminloginaxios } from '../../../app';
 
 
 const SubProductDatatable = () => {
@@ -12,7 +12,7 @@ const SubProductDatatable = () => {
   // const [mount,setMount] = useState(false)
 
   useEffect(()=>{
-    axios.get('/api/view-subproducts').then(res=>{
+    adminloginaxios.get('/api/view-subproducts').then(res=>{
       if(res.status === 200){
         let proarray = [];
         res.data.subproducts.map(item =>{
@@ -34,7 +34,7 @@ const SubProductDatatable = () => {
     const result = window.confirm('本当に削除してよろしいですか？')
     if(result){
       e.preventDefault();
-      axios.post(`/api/delete-subproduct/${id}`).then(res=>{
+      adminloginaxios.post(`/api/delete-subproduct/${id}`).then(res=>{
         if(res.data.status === 200){
           setProductList(productList.filter(prev=>prev.id !== id))
         }

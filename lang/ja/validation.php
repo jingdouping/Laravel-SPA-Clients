@@ -193,7 +193,7 @@ return [
         'address_code' => '郵便番号',
         'address1' => '住所',
         'post_code' => '丁目/番地/号',
-        'adminname' => '管理者名',
+        'admin_name' => '管理者名',
 
     ],
 

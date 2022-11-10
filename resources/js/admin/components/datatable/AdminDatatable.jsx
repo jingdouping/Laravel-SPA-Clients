@@ -3,7 +3,7 @@ import './datatable.scss'
 import { DataGrid } from '@mui/x-data-grid';
 import { adminColumns,userRows } from '../../datatablesource';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { adminloginaxios } from '../../../app';
 
 const AdminDatatable = () => {
   const [data,setData] = useState(userRows)
@@ -11,7 +11,7 @@ const AdminDatatable = () => {
 
 
   useEffect(()=>{
-    axios.get('/api/view-admins').then(res=>{
+    adminloginaxios.get('/api/view-admins').then(res=>{
       if(res.status === 200){
         setAdmins(res.data.admins)
       }

@@ -1,9 +1,9 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./newCategory.scss";
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { adminloginaxios } from "../../../app";
 
 export default function NewFirstCategory(props) {
   const navigate = useNavigate()
@@ -19,7 +19,7 @@ export default function NewFirstCategory(props) {
 
   const submitCategory = (e) => {
     e.preventDefault()
-    axios.post('/api/store-firstcategory',category).then(res => {
+    adminloginaxios.post('/api/store-firstcategory',category).then(res => {
       if(res.data.status === 200){
         document.getElementById('CATEGORY_FORM').reset();
         Swal.fire({

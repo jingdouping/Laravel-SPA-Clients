@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import './newAdmin.scss'
 import Sidebar from "../../components/sidebar/Sidebar";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { adminloginaxios } from '../../../app';
 
 const NewAdmin = (props) => {
     const navigate = useNavigate()
@@ -21,7 +21,7 @@ const NewAdmin = (props) => {
 
     const submitCategory = (e) => {
       e.preventDefault()
-      axios.post('/api/store-admin',admin).then(res => {
+      adminloginaxios.post('/api/store-admin',admin).then(res => {
         if(res.data.status === 200){
           document.getElementById('CATEGORY_FORM').reset();
           Swal.fire({

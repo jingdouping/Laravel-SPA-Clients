@@ -3,15 +3,15 @@ import './datatable.scss'
 import { DataGrid } from '@mui/x-data-grid';
 import { categoryColumns,userRows } from '../../datatablesource';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
 import Swal from 'sweetalert2';
+import { adminloginaxios } from '../../../app';
 
 const FirstCategoryDatatable = () => {
   const [categoryList,setCategoryList] = useState([]);
 
 
   useEffect(()=>{
-    axios.get('/api/view-firstcategory').then(res=>{
+    adminloginaxios.get('/api/view-firstcategory').then(res=>{
       if(res.status === 200){
         setCategoryList(res.data.primary_category)
       }
@@ -25,7 +25,7 @@ const FirstCategoryDatatable = () => {
       e.preventDefault();
       const thisClicked = e.currentTarget;
       thisClicked.innerText = 'Deleting';
-      axios.post(`/api/delete-firstcategory/${id}`).then(res=>{
+      adminloginaxios.post(`/api/delete-firstcategory/${id}`).then(res=>{
         if(res.data.status === 200){
           setCategoryList(categoryList.filter(prev=>prev.id !== id))
           Swal.fire({

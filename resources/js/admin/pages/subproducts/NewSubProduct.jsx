@@ -1,7 +1,6 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { Navigation } from "swiper";
 import {SwiperSlide,Swiper } from 'swiper/react';
@@ -10,6 +9,7 @@ import "swiper/css/navigation";
 import NoImage from '../../image/no-image-icon-0.jpeg';
 import "./newSubProduct.scss";
 import { useLocation } from "react-router-dom";
+import { adminloginaxios } from "../../../app";
 
 
 export default function NewSubProduct(props) {
@@ -42,7 +42,7 @@ export default function NewSubProduct(props) {
 
   useEffect(()=>{
     if(code){
-      axios.get(`/api/view-subproducts/${code}`).then(res=>{
+      adminloginaxios.get(`/api/view-subproducts/${code}`).then(res=>{
         if(res.status === 200){
           setProductList(res.data.products)
           setProductInput({...productInput,product_name:res.data.products[0].product_name,product_code:res.data.products[0].product_code,description:res.data.products[0].description,category:res.data.products[0].secondary_category_id,price:res.data.products[0].price})
@@ -50,7 +50,7 @@ export default function NewSubProduct(props) {
         }
       });
     }else{
-      axios.get('/api/view-subproducts').then(res=>{
+      adminloginaxios.get('/api/view-subproducts').then(res=>{
         if(res.status === 200){
           setProductList(res.data.products)
           setCategoryList(res.data.primary_category)
@@ -92,7 +92,7 @@ export default function NewSubProduct(props) {
 
 
 
-    axios.post('/api/store-subproduct',formData).then(res=>{
+    adminloginaxios.post('/api/store-subproduct',formData).then(res=>{
       if(res.data.status === 200){
         setProductInput({
           product_name:'',

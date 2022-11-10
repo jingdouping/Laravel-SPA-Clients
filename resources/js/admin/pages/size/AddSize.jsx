@@ -1,7 +1,7 @@
-import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { adminloginaxios } from '../../../app'
 import Sidebar from '../../components/sidebar/Sidebar'
 import './addSize.scss'
 
@@ -25,7 +25,7 @@ const AddSize = (props) => {
 
   const inputSubmit = (e) => {
     e.preventDefault();
-    axios.post(`api/store-size/${productid}`,input).then(res=>{
+    adminloginaxios.post(`api/store-size/${productid}`,input).then(res=>{
       if(res.data.status === 200){
         document.getElementById('FORM').reset();
         Swal.fire({

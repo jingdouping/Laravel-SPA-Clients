@@ -1,9 +1,9 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import "./newProduct.scss";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate, useParams } from "react-router-dom";
+import { adminloginaxios } from "../../../app";
 
 export default function EditProduct(props) {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ export default function EditProduct(props) {
 
 
   useEffect(()=>{
-    axios.get('/api/view-firstcategory').then(res=>{
+    adminloginaxios.get('/api/view-firstcategory').then(res=>{
       if(res.status === 200){
         setCategoryList(res.data.primary_category)
       }
@@ -33,7 +33,7 @@ export default function EditProduct(props) {
 
   let {productid} = useParams();
   useEffect(()=>{
-    axios.get(`/api/edit-product/${productid}`).then(res=>{
+    adminloginaxios.get(`/api/edit-product/${productid}`).then(res=>{
       if(res.data.status === 200){
         setProductInput(res.data.product);
         setDisplayPrice(String(res.data.product.price).replace(/\B(?=(\d{3})+(?!\d))/g, ','))
@@ -87,7 +87,7 @@ export default function EditProduct(props) {
     formData.append('category',productInput.secondary_category_id);
 
 
-    axios.post(`/api/update-product/${productid}`,formData).then(res=>{
+    adminloginaxios.post(`/api/update-product/${productid}`,formData).then(res=>{
       if(res.data.status === 200){
         setProductInput({
           product_name:'',
