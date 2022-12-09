@@ -37,11 +37,10 @@ class AuthController extends Controller
             'mansion_name' => $request->mansion_name,
         ]);
         Auth::guard('users')->login($user);
-        // $session = $request->session()->regenerate();
+
         return response()->json([
             'status' => 200,
             'username' => $user->name,
-            // 'session' => $session,
             'message' => '登録完了しました',
         ]);
     }
@@ -76,19 +75,14 @@ class AuthController extends Controller
         }
 
 
-        // if (Auth::attempt($validator->validate())) {
         if (Auth::guard('users')->attempt($validator->validate())) {
-        // if (Auth::guard('users')->attempt(['email' => $input['email'],'password' => $input['password']])) {
-            // Auth::guard('users')->login($user);
             $session = $request->session()->regenerate();
             return response()->json([
                 'status' => 200,
                 'username' => $user->name,
                 'user' => $user,
                 'session' => $session,
-                // 'token' => $token,
                 'message' => 'Logged In Successfully',
-                // 'role' => $role,
             ]);
         }
     }
@@ -112,7 +106,6 @@ class AuthController extends Controller
             ]);
         }
 
-        // if (Auth::attempt($validator->validate())) {
         if (Auth::guard('admins')->attempt($validator->validate())) {
             $session = $request->session()->regenerate();
             return response()->json([
@@ -127,8 +120,6 @@ class AuthController extends Controller
 
     public function adminlogout(Request $request){
         Auth::guard('admins')->logout();
-        // $request->session()->invalidate();
-        // $request->session()->regenerateToken();
         return response()->json([
             'status'=>200,
             'message'=>'ログアウトしました',
@@ -137,10 +128,6 @@ class AuthController extends Controller
 
     public function logout(Request $request){
         Auth::guard('users')->logout();
-
-        // $request->session()->invalidate();
-
-        // $request->session()->regenerateToken();
 
         return response()->json([
             'status'=>200,

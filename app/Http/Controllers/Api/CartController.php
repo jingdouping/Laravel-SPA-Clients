@@ -150,16 +150,8 @@ class CartController extends Controller
     }
 
 
-    public function viewCart(Request $request){
-
-        // return response()->json([
-        //     'status' => 401,
-        //     'message' => $request->session()->all(),
-        //     'user' => auth()->user(),
-        //     'auth' => Auth::check(),
-        // ]);
-
-        if(auth('users')->check()){
+    public function viewCart(){
+        if(auth('sanctum')->check()){
 
             $user_id = auth('sanctum')->user()->id;
             $user = User::Where('id',$user_id)->get();

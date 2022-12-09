@@ -9,14 +9,13 @@ import { Search } from '@mui/icons-material'
 import { Pagination, Stack } from '@mui/material'
 import './ProductList.scss'
 
-const ProductList = () => {
 
+const ProductList = () => {
     const location = useLocation();
     const cat = location.pathname.split('/')[2];
     const [sort,setSort] = useState('newest');
     const [primaryCategory,setPrimaryCategory] = useState([])
     const [catProduct,setCatProduct] = useState([])
-
     const [selectedPrimaryCategory,setSelectedPrimaryCategory] = useState(cat)
     const [selectedSecondaryCategory,setSelectedSecondaryCategory] = useState('All')
     const [allProduct,setAllProduct] = useState([])
@@ -25,7 +24,6 @@ const ProductList = () => {
     const [searchProducts,setSearchProducts] = useState([]);
     const [page,setPage] = useState(1)
     const [pageCount,setPageCount] = useState()
-
     const [filterProducts,setFilterProducts] = useState([])
     const [sortProducts,setSortProducts] = useState([])
     const [allSecCat,setAllSecCat] = useState([])
@@ -34,10 +32,10 @@ const ProductList = () => {
     const displayCount = 8
 
     let primaryArray = ['All',]
-
     primaryCategory.map(item=>{
-      return primaryArray.push(item.primary_category_name)
+        return primaryArray.push(item.primary_category_name)
     })
+
 
     useEffect(()=>{
       window.scrollTo(0, 0);
@@ -128,7 +126,6 @@ const ProductList = () => {
               return
             }
           })
-
           setFilterProducts(subproductArray)
         }
       }else if(selectedPrimaryCategory !== 'All'){
@@ -140,7 +137,7 @@ const ProductList = () => {
              })
            }
         })
-        setSecCat(selectseccatArray)
+        setSecCat(allSecCat)
         if(selectedSecondaryCategory === 'All'){
           let subproductArray = []
           allProduct.forEach(sub=>{
@@ -175,6 +172,7 @@ const ProductList = () => {
         }
       }
     },[selectedPrimaryCategory,selectedSecondaryCategory])
+
 
     useEffect(()=>{
       if(filterProducts.find(item=>{
