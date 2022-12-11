@@ -18,21 +18,6 @@ const OrderDatatable = () => {
     });
   },[]);
 
-  const actionColumn =[{
-    field:'action',
-    headerName:'Action',
-    width:250,
-    renderCell:(params)=>{
-      return(
-        <div className='cellAction'>
-          <Link to={`/admin/orders/${params.row.cart.id}`} style={{textDecoration:'none'}}>
-            <div className='viewButton'>注文商品を見る</div>
-          </Link>
-
-        </div>
-      )
-    }
-  }]
 
 
   return (
@@ -41,7 +26,7 @@ const OrderDatatable = () => {
       <DataGrid
       className='datagrid'
         rows={orders}
-        columns={ordersColumns.concat(actionColumn)}
+        columns={ordersColumns}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection

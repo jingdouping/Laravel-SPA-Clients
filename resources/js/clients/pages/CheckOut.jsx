@@ -12,7 +12,7 @@ import Modal from '@mui/material/Modal';
 import { usePaymentInputs } from 'react-payment-inputs';
 import { useForm } from "react-hook-form";
 import { Add, Remove } from '@mui/icons-material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import './CheckOut.scss'
 
 const ERROR_MESSAGES = {
@@ -92,7 +92,6 @@ const Checkout = () => {
     const [creditArray,setCreditArray] = useState([{card_number:''}])
     const [selectedCredit,setSelectedCredit] = useState([])
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const isLoggedIn = useSelector(state=>state.login.login)
 
 
@@ -189,11 +188,6 @@ const Checkout = () => {
         setInput({...input,delivery_method:radio})
     },[radio])
 
-    // useEffect(()=>{
-    //     if(cart.length === 0){
-    //         navigate('/')
-    //     }
-    // },[cart])
 
     const handleQuantity = (e,type,id) =>{
         e.preventDefault();
@@ -325,25 +319,27 @@ const Checkout = () => {
         }
     }
 
-    const creditCheckedHandler = () =>{
-        setCreditChecked(!creditChecked)
-    }
+    // const creditCheckedHandler = () =>{
+    //     setCreditChecked(!creditChecked)
+    // }
 
     const onFormSubmit = () => {
-        let creDif = ''
-        const creditDefault = document.creditForm.creditDefault
-        if(creditDefault.checked === true){
-            creDif = 1
-        }else if(creditDefault.checked === false){
-            creDif = 0
-        }
+
+        // let creDif = 1
+        // const creditDefault = document.creditForm.creditDefault
+        // if(creditDefault.checked === true){
+        //     creDif = 1
+        // }else if(creditDefault.checked === false){
+        //     creDif = 0
+        // }
         const filterDate = Date.now()
         let data = {
             card_number:getValues('cardNumber'),
             expiry_date:getValues('expiryDate'),
             cvc:getValues('cvc'),
             credit_name:getValues('cardName'),
-            default:creDif,
+            // default:creDif,
+            default:1,
             filter:filterDate
         }
         loginaxios.post('api/credit/store',data).then(res=>{
@@ -352,11 +348,13 @@ const Checkout = () => {
             setCreditArray([data,...creditArray])
             }
         })
+        setCreditArray([data,...creditArray])
         setCreditOpen(false);
     }
 
 
     const onEditSubmit = () => {
+
         setPaymentRadio(selectedCredit[0].filter)
         setCreditEditOpen(false)
         let data = {
@@ -379,6 +377,7 @@ const Checkout = () => {
             }
         })
     }
+
 
     const cardEdit = (date) => {
         setPaymentRadio(date)
@@ -430,6 +429,7 @@ const Checkout = () => {
     }
 
     const orderSubmit = (e) =>{
+        console.log('OK');
         e.preventDefault()
         if(cart.length === 0){
             Swal.fire({
@@ -748,8 +748,8 @@ const Checkout = () => {
                 </div>
                 <h6 className='checkouterrortypo'>{cardNameError}</h6>
                 <div className='checkoutmodalwrapper'>
-                <span className='checkoutinputlabel'>デフォルト登録：</span>
-                <input type='checkbox' name='creditDefault' onChange={creditCheckedHandler} checked={creditChecked}/>
+                {/* <span className='checkoutinputlabel'>デフォルト登録：</span>
+                <input type='checkbox' name='creditDefault' onChange={creditCheckedHandler} checked={creditChecked}/> */}
                 </div>
                 {/* <input type='submit'></input> */}
                 {/* <Button onClick={cardInfoSubmit} style={{marginTop:'32px'}}>登録</Button> */}

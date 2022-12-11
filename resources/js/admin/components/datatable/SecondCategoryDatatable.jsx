@@ -61,7 +61,7 @@ const SecondCategoryDatatable = () => {
   return (
     <div className='datatable'>
       <div className='datatableTitle'>
-        Add New Second Category
+        第二カテゴリー追加
         <Link to='/admin/secondcategories/new' className='link'>
           新規作成
         </Link>

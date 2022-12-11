@@ -60,7 +60,7 @@ const FirstCategoryDatatable = () => {
   return (
     <div className='datatable'>
       <div className='datatableTitle'>
-        Add New Category
+        第一カテゴリー追加
         <Link to='/admin/firstcategories/new' className='link'>
           新規作成
         </Link>

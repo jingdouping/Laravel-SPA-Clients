@@ -71,7 +71,7 @@ const SubProductDatatable = () => {
 
       <div className='datatable'>
       <div className='datatableTitle'>
-        Sub Product
+        商品追加
         <Link to='/admin/subproducts/new' className='link'>
           新規作成
         </Link>

@@ -66,7 +66,7 @@ const ProductDatatable = () => {
   return (
       <div className='datatable'>
       <div className='datatableTitle'>
-        Product
+        品番追加
         <Link to='/admin/products/new' className='link'>
           新規作成
         </Link>
